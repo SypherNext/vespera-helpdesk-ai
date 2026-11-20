@@ -1,0 +1,5 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "slow: involves multiple live model calls (consistency/concurrency checks)",
+]

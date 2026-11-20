@@ -1,0 +1,25 @@
+name: PR Smoke Suite
+on: [pull_request]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Ollama and pull models
+        run: |
+          curl -fsSL https://ollama.ai/install.sh | sh
+          ollama serve &
+          sleep 5
+          ollama pull llama3.2:3b
+          ollama pull nomic-embed-text
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run smoke suite (fast, narrow)
+        run: pytest tests/test_smoke.py tests/test_validation.py -m "not slow" -v
+      - name: Run safety suite (never skipped)
+        run: pytest tests/test_safety.py -v

@@ -1,0 +1,4 @@
+{"question": "Does the Pro plan support SSO?", "reference_answer": "Yes, the Pro plan includes SSO support for enterprise identity providers.", "must_include": ["sso", "pro"], "topic": "security"}
+{"question": "What's the API rate limit on the Free plan?", "reference_answer": "The Free plan is limited to 60 API requests per minute.", "must_include": ["60"], "topic": "product"}
+{"question": "Does Enterprise include phone support?", "reference_answer": "Yes, Enterprise plan customers get 24/7 phone support.", "must_include": ["phone", "enterprise"], "topic": "billing"}
+{"question": "Does the Pro plan include phone support?", "reference_answer": "No, phone support is only available on the Enterprise plan.", "must_include": ["no", "enterprise"], "topic": "billing"}

@@ -1,0 +1,4 @@
+{"question": "What's the API rate limit on the Free plan?", "expected_doc_id": "free-plan"}
+{"question": "Does the Pro plan support SSO?", "expected_doc_id": "pro-plan"}
+{"question": "How long do you keep my ticket data?", "expected_doc_id": "data-retention"}
+{"question": "Does Enterprise include phone support?", "expected_doc_id": "enterprise-plan"}

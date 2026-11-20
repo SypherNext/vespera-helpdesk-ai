@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+llmqe/observability/eval_log.jsonl
+llmqe/reporting/latest_report.md

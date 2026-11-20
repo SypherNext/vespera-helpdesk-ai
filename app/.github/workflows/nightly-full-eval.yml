@@ -1,0 +1,33 @@
+name: Nightly Full Evaluation
+on:
+  schedule:
+    - cron: "0 6 * * *" # once a day
+
+jobs:
+  full-eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Ollama and pull models
+        run: |
+          curl -fsSL https://ollama.ai/install.sh | sh
+          ollama serve &
+          sleep 5
+          ollama pull llama3.2:3b
+          ollama pull nomic-embed-text
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Build baseline (first run only -- safe to skip once v1.json exists)
+        run: test -f llmqe/baseline/baselines/v1.json || python scripts/build_baseline.py
+      - name: Run full evaluation, RAG, safety, and regression suites
+        run: python scripts/run_full_suite.py
+      - name: Upload report as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-report
+          path: llmqe/reporting/latest_report.md
